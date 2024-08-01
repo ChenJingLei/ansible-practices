@@ -1,0 +1,31 @@
+---
+# tasks file for balancera
+- name: Install HAProxy
+  yum:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - haproxy
+
+- name: Copy haproxy.cfg
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - restart_haproxy
+
+- name: Start HAProxy
+  service:
+    name: haproxy
+    state: started
+    enabled: yes
+
+- name: Allow HAProxy service through firewalld
+  firewalld:
+    port: 80/tcp
+    permanent: yes
+    state: enabled
+...    

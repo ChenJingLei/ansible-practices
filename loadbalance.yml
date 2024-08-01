@@ -1,0 +1,15 @@
+---
+- name: Deploy lb
+  hosts: lb,servers
+  
+  #pre_tasks:
+  
+- name: test role
+  hosts: lb
+  roles:
+    - balancer
+
+  #tasks:
+
+  #post_tasks:
+  

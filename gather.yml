@@ -1,0 +1,26 @@
+---
+- name: Deploy web server
+  hosts: servers
+
+  tasks:
+    - name: Install httpd package
+      dnf:
+        name: httpd
+        state: latest
+    
+    - name: Start httpd service
+      service:
+        name: httpd
+        state: started
+        enabled: true
+
+    - name: Create web dir
+      file:
+        path: /var/www/html/
+        state: directory
+    
+    - name: copy template to web dir
+      template:
+        src: /root/test/index.html.j2
+        dest: /var/www/html/index.html
+

@@ -1,0 +1,5 @@
+---
+# vars file for balancer
+mode: http
+balance: roundrobin
+...
